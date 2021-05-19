@@ -10,8 +10,16 @@ export const App = () => {
   const [inputValue, setInputValue] = useState("");
 
   const createTodo = () => {
-    inputValue && setTodos([...todos, {text: inputValue, complete: false }]);
-    setInputValue("")
+    if(inputValue){
+      setTodos([...todos, {text: inputValue, complete: false }]);
+      setInputValue("")
+
+      // save in localSt
+      localStorage.setItem("todos", 
+      JSON.stringify([...todos, {text: inputValue, complete: false }])
+      );
+    }
+  
   };
   // console.log(todos)
 
