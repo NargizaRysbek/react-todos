@@ -10,14 +10,11 @@ export const App = () => {
   const [inputValue, setInputValue] = useState("");
 
   const createTodo = () => {
+    let arr = [...todos, {text: inputValue, complete: false }]
     if(inputValue){
-      setTodos([...todos, {text: inputValue, complete: false }]);
-      setInputValue("")
-
-      // save in localSt
-      localStorage.setItem("todos", 
-      JSON.stringify([...todos, {text: inputValue, complete: false }])
-      );
+      setTodos(arr); // update or modify todos
+      setInputValue("") // clear input
+      localStorage.setItem("todos", JSON.stringify(arr));  // save in localSt
     }
   
   };
@@ -29,8 +26,11 @@ export const App = () => {
   // }, [todos])
 
   useEffect(() => {
+    // getting values of LS
     let localTodos = JSON.parse(localStorage.getItem("todos"))
-    setTodos(localTodos)
+    // если в лок ст есть данные то вытаскиваем, если нет данных, то оставляем пустой массив
+    // check for emptyness local St
+    localTodos && setTodos(localTodos) 
   }, [])
 
   const completeTodo = (id) => {
@@ -65,7 +65,7 @@ export const App = () => {
         <button onClick={createTodo}>Add</button>
 
       </div>
-      {
+      { todos && // true Болсо 
         todos.map((el, id) => {
           return  <TodoItem 
                        completeTodo={completeTodo} 
