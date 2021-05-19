@@ -1,4 +1,4 @@
-import {useState} from 'react'
+import {useEffect, useState} from 'react'
 import { TodoItem } from './components/TodoItem/index';
 import './App.css';
 
@@ -23,11 +23,21 @@ export const App = () => {
   };
   // console.log(todos)
 
+  // useEffect(() => {
+  //  console.log("test useEffect")
+  //  alert("Изменились данные")
+  // }, [todos])
+
+  useEffect(() => {
+    let localTodos = JSON.parse(localStorage.getItem("todos"))
+    setTodos(localTodos)
+  }, [])
+
   const completeTodo = (id) => {
       let arr = [...todos];
       arr[id].complete = !arr[id].complete
       setTodos(arr)
-      console.log(todos)
+      localStorage.setItem("todos", JSON.stringify(arr))
   }
 
   const deleteTodo = (id) => {
@@ -35,6 +45,7 @@ export const App = () => {
     let arr = [...todos];
     arr.splice(id, 1)
     setTodos(arr)
+    localStorage.setItem("todos", JSON.stringify(arr))
   }
 
 
