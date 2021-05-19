@@ -7,12 +7,27 @@ export const App = () => {
 
 
   const [todos, setTodos] = useState([]);
-  const [inputValue, setInputValue] =useState("");
+  const [inputValue, setInputValue] = useState("");
 
   const createTodo = () => {
-    setTodos([...todos, {text: inputValue}]);
+    inputValue && setTodos([...todos, {text: inputValue, complete: false }]);
     setInputValue("")
   };
+  // console.log(todos)
+
+  const completeTodo = (id) => {
+      let arr = [...todos];
+      arr[id].complete = !arr[id].complete
+      setTodos(arr)
+      console.log(todos)
+  }
+
+  const deleteTodo = (id) => {
+    // console.log(id)
+    let arr = [...todos];
+    arr.splice(id, 1)
+    setTodos(arr)
+  }
 
 
 
@@ -33,7 +48,12 @@ export const App = () => {
       </div>
       {
         todos.map((el, id) => {
-          return  <TodoItem todo={el} id={id}  />
+          return  <TodoItem 
+                       completeTodo={completeTodo} 
+                       deleteTodo={deleteTodo} 
+                       todo={el} 
+                       id={id} 
+                       key={id}  />
         })
       }
     </div>
