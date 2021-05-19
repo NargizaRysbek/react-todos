@@ -14,9 +14,8 @@ export const App = () => {
     if(inputValue){
       setTodos(arr); // update or modify todos
       setInputValue("") // clear input
-      localStorage.setItem("todos", JSON.stringify(arr));  // save in localSt
+      updateLocalTodos(arr)// save in localSt
     }
-  
   };
   // console.log(todos)
 
@@ -32,12 +31,16 @@ export const App = () => {
     // check for emptyness local St
     localTodos && setTodos(localTodos) 
   }, [])
+  
 
+  const updateLocalTodos = (arr) => {
+    localStorage.setItem("todos", JSON.stringify(arr))
+  }
   const completeTodo = (id) => {
       let arr = [...todos];
       arr[id].complete = !arr[id].complete
       setTodos(arr)
-      localStorage.setItem("todos", JSON.stringify(arr))
+      updateLocalTodos(arr)
   }
 
   const deleteTodo = (id) => {
@@ -45,7 +48,7 @@ export const App = () => {
     let arr = [...todos];
     arr.splice(id, 1)
     setTodos(arr)
-    localStorage.setItem("todos", JSON.stringify(arr))
+    updateLocalTodos(arr)
   }
 
 
