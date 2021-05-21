@@ -1,12 +1,16 @@
-import React from 'react'
+import React , {useContext} from 'react'
+import {Context} from '../../context'
+import { CustomButton } from '../Button'
 
 
-export const TodoItem = ({ todo, id, deleteTodo, completeTodo}) => {
+export const TodoItem = ({ todo, id}) => {
+
+    const {deleteTodo, completeTodo} = useContext(Context)
     return (
         <div className="todo-item" style={todo.complete ? ready : notReady}>
             {todo.text}
-            <button onClick={() => completeTodo(id)}>{todo.complete ? "отменить" : "выполнено"}</button>
-            <button onClick={() => { deleteTodo(id)}}>delete</button>
+            <CustomButton onClick={() => completeTodo(id)} text={todo.complete ? "отменить" : "выполнено"}/> 
+            <CustomButton onClick={() => { deleteTodo(id)}} text="delete"/> 
         </div>
     )
 }
