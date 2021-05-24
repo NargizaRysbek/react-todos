@@ -43,8 +43,11 @@ export const Login = () => {
                 }}
             />
 
-            <button onClick={onLogin}>Войти</button>
+            <Link to="/login">
+               <button onClick={onLogin}>Войти</button>
+            </Link>
 
+           
 
 
         </div>
